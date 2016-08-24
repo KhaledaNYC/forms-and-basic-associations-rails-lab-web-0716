@@ -9,17 +9,18 @@ class SongsController < ApplicationController
 
   def new
     @song = Song.new
+    @genres = Genre.all
   end
 
   def create
-    @song = Song.new(song_params)
+  @song = Song.new(song_params)
 
-    if @song.save
-      redirect_to @song
-    else
-      render :new
-    end
+  if @song.save
+    redirect_to @song
+  else
+    render :new
   end
+end
 
   def edit
     @song = Song.find(params[:id])
@@ -47,7 +48,6 @@ class SongsController < ApplicationController
   private
 
   def song_params
-    params.require(:song).permit(:title)
+    params.require(:song).permit(:title,:artist_name,:genre_id,note_contents: [])
   end
 end
-
